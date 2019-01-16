@@ -5,11 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Components</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
 </head>
 <body>
     <main>
+        <nav>
+            <ul class="main-nav">
+                <li class="nav-item">Home</li>
+                <li class="nav-item">Users</li>
+                <li class="nav-item">Portfolio</li>
+                <li class="nav-item">Contact</li>
+            </ul>
+        </nav>
+        <article>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi, atque molestias velit architecto incidunt culpa labore fuga ducimus rem? Officia suscipit ipsum aperiam exercitationem nemo. 
+            
+            Autem, eligendi. Molestias, minus cumque.Maxime error pariatur molestiae ipsum obcaecati ipsam reiciendis eaque quia illo. Modi itaque a accusantium pariatur iure, eius aperiam non blanditiis eum maiores tenetur officia neque cumque natus. Ut, tenetur?
+        </article>
+
+        <h3>
+            Our Team
+        </h3>
+
         <div id="app">
-            <liveuser></liveuser>
+                <user first_name="Jaclyn" last_name="Flomen" role="Project Manager" @passfunccallup="logMainMsg"></user>
+                <user first_name="Soraya" last_name="Pittis" role="Front-End Developer"></user>
+                <user first_name="Allison" last_name="Pao" role="Motion Designer"></user>
         </div>
     </main>
 
@@ -18,7 +39,11 @@
     (can put multiple things within single root element)-->
 <template id="activeuser">
     <div>
-        <p>{{ name }}</p>
+        <p>{{ first_name }}</p>
+        <!-- <p>{{ last_name }}</p>
+        <p>{{ role }}</p> -->
+        <button v-on:click="logChildMsg">log child click</button>
+        <button v-on:click="runParentFunc">run a parent function</button>
     </div>
 </template>
     
