@@ -5,8 +5,36 @@ const HomePageComponent = {
     };
 
 const UsersPageComponent = {
-    template: "<h2>You're on the users page</h2>"
-};
+    prope: ['id'],
+    template: "#userList",
+
+    data: function() {
+        return {
+            users: []
+        }
+    },
+
+    created: function() {
+        console.log('user component created');
+
+        this.fetchUserData(this.id);
+    },
+
+    methods: {
+        fetchUserData(user) {
+            // debugger;
+
+            let url = `./includes/index.php?user=${user}`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => this.users = data)
+            .catch(function(error){
+                console.error(error);
+            });
+        }
+    }
+ };
 
 const ContactPageComponent = {
     template: "<h2>You're on the contact page</h2>"
@@ -18,7 +46,7 @@ const ErrorPageComponent = {
 
 const routes = [
     { path: '/', name: 'home', component: HomePageComponent },
-    { path: '/users', name: 'users', component: UsersPageComponent},
+    { path: '/users/:id', name: 'users', component: UsersPageComponent, props: true },
     { path: '/contact', name: 'contact', component: ContactPageComponent},
     { path: '/*', name: 'error', component: ErrorPageComponent }
 ];
