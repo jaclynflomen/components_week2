@@ -24,14 +24,24 @@ export default {
 
             //check against our mock account creds
             if(this.input.username !="" && this.input.password !="") {
-                if(this.input.password == this.$parent.mockAccount.password){
-                    console.log("You are logged in!");
-                    this.$emit("authenticated", true);
-                    this.$router.replace({name: "users"});
-                }else{
-                    console.log('Login failed');
-                    // this.$router.replace({name: "login"});
-                }
+                //do a fetch here and check creds on the back end
+                let url = `./includes/index.php?username=${this.input.username}&&=${this.input.password}`;
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data[0] == "false") {
+                            //if te php file returns a failure, try again
+                            console.log("authentication failed, try again");
+                        }else{
+                            //if the back-end authentication works, then go to the users page
+                            this.$emit("authenticated", true);
+                            this.$router.replace({name: "users"});
+                        }
+                    })
+                .catch(function(error){
+                    console.error(error);
+                });
             } else {
                 console.log('Username and Password cannot be blank');
             }
